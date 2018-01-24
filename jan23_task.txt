@@ -1,0 +1,72 @@
+Question: Create a stored procedure which takes one value, as a limit to finds the prime number until it reaches that limit
+
+Answer :
+
+DELIMETER $$
+
+create table number (number int(10))$$
+
+create procedure primes(IN value int(5))
+	begin
+		
+		DECLARE i int default 1;
+		DECLARE j int default 1;
+		DECLARE count int default 0;
+		
+		Truncate table number; 
+		
+		while(j<=value) do
+			while(i<=j) do
+				if(j%i=0) then
+					set count = count + 1;
+				end if;
+				set i=i+1;
+			end while;
+			if(count = 2) then
+				INSERT into number VALUES (j);
+			end if;
+			
+			set i = 1;
+			set j = j + 1;
+			set count = 0;
+			
+		end while;
+	end$$
+
+Result:
+
+call primes(100)$$
+
+
+select * from number;$$
++--------+
+| number |
++--------+
+|      2 |
+|      3 |
+|      5 |
+|      7 |
+|     11 |
+|     13 |
+|     17 |
+|     19 |
+|     23 |
+|     29 |
+|     31 |
+|     37 |
+|     41 |
+|     43 |
+|     47 |
+|     53 |
+|     59 |
+|     61 |
+|     67 |
+|     71 |
+|     73 |
+|     79 |
+|     83 |
+|     89 |
+|     97 |
++--------+
+25 rows in set (0.00 sec)
+
